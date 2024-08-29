@@ -1,18 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { startTransition } from '../../redux/transitionSlice';
 import Logo from "../assets/Logo.svg";
 
 function QuizLogo() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    dispatch(startTransition());
-    setTimeout(() => {
+
       navigate('/main-menu');
-    }, 1000); // Match this duration with the transition duration
+
   };
 
   return (
