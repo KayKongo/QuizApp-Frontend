@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import Logo from "../assets/Logo.svg";
 import { useNavigate } from 'react-router-dom';
+import studentLaptop from "../assets/student-laptop.jpg";
+import laptop from "../assets/laptop.jpg";
+import writing from '../assets/writing.jpg';
+import books from '../assets/books.jpg';
+import { Cup, Setting2, TimerStart, Rank, Profile2User, MedalStar } from 'iconsax-react';
 
 function MainMenu() {
     const navigate = useNavigate();
@@ -17,7 +22,7 @@ function MainMenu() {
 
       <div
         className='size-16 m-5'>
-        <img src={Logo} alt="Logo" className="" />
+        <img src={Logo} alt="Logo" className="transition-transform duration-1000 view-transition"/>
       </div>
 
 
@@ -34,20 +39,20 @@ function MainMenu() {
 
                     <img 
                         className="w-56 h-40 rounded-tl-[40px] rounded-tr-[100px] rounded-bl-[60px] rounded-br-3xl mt-16" 
-                        src="https://via.placeholder.com/319x244" 
+                        src={studentLaptop} 
                         alt="Image 1" 
                     />
                     
-                    <div className='gap-1'>
-                    <div className='flex flex-wrap justify-center mr-10'>
+                    <div className='gap-2'>
+                    <div className='flex flex-wrap justify-center mr-10 gap-1'>
                     <img 
                         className="w-36 h-28 rounded-tl-[40px] rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl" 
-                        src="https://via.placeholder.com/189x154" 
+                        src={laptop} 
                         alt="Image 2" 
                     />
                     <img 
                         className="w-36 h-28 rounded-tl-[40px] rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl" 
-                        src="https://via.placeholder.com/359x157" 
+                        src={books}
                         alt="Image 3" 
                     />
                         
@@ -55,7 +60,7 @@ function MainMenu() {
 
                     <img 
                         className="w-72 h-28 rounded-tl-3xl rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl mt-1" 
-                        src="https://via.placeholder.com/195x157" 
+                        src={writing}
                         alt="Image 4" 
                     />
 
@@ -65,32 +70,32 @@ function MainMenu() {
 
         </div>
 
-        <div className="flex justify-start items-center ml-24">
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+        <div className="flex justify-center items-center mr-24">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-10">
     <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-3xl font-semibold">Practice</div>
-      <img className="w-[116px] h-[116px] mb-4" src="https://via.placeholder.com/116x116" alt="Timed Quiz" />
+      <div className="text-black text-2xl font-semibold mb-4">Practice</div>
+      <MedalStar size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
     <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-3xl font-semibold">Timed Quiz</div>
-      <img className="w-[116px] h-[116px] mb-4" src="https://via.placeholder.com/116x116" alt="Timed Quiz" />
+      <div className="text-black text-2xl font-semibold mb-4">Ranking</div>
+      <Rank size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
     <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-3xl font-semibold">Survival</div>
-      <img className="w-[116px] h-[108.38px] mb-4" src="https://via.placeholder.com/116x108" alt="Survival" />
+      <div className="text-black text-2xl font-semibold mb-4">Survival</div>
+      <TimerStart size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
     <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-3xl font-semibold">Challenge a Friend</div>
-      <img className="w-[123.33px] h-[101.82px] mb-4" src="https://via.placeholder.com/123x102" alt="Challenge a Friend" />
+      <div className="text-black text-2xl font-semibold mb-4">Challenge a Friend</div>
+      <Profile2User size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
     <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-3xl font-semibold text-center">Settings</div>
-      <img className="w-[116px] h-[116px] mb-4" src="https://via.placeholder.com/116x116" alt="Timed Quiz" />
+      <div className="text-black text-2xl font-semibold  mb-4">Settings</div>
+      <Setting2 size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
     
     <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={handleButtonClick}>
-      <div className="text-black text-3xl font-semibold mb-4">Tournament</div>
-      <img className="w-[116px] h-[103.86px]" src="https://via.placeholder.com/116x104" alt="Tournament" />
+      <div className="text-black text-2xl font-semibold mb-4">Tournament</div>
+      <Cup size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
   </div>
 </div>

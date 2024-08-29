@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../assets/Logo.svg";
 
+
 function QuizLogo() {
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ function QuizLogo() {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="relative flex items-center">
-        <img src={Logo} alt="Logo" className="transition-transform duration-1000" />
+      <img src={Logo} alt="Logo" className="transition-transform duration-1000 view-transition"/>
         <span className="text-4xl font-extrabold -ml-4 mt-4 text-neutral-800">uizArena</span>
       </div>
       <button
