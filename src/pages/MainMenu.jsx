@@ -59,30 +59,30 @@ function MainMenu() {
 
         <div className="flex justify-start items-center ml-24">
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-    <div className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
+    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
       <div className="text-black text-3xl font-semibold">Practice</div>
       <img className="w-[116px] h-[116px] mb-4" src="https://via.placeholder.com/116x116" alt="Timed Quiz" />
-    </div>
-    <div className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
+    </button>
+    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
       <div className="text-black text-3xl font-semibold">Timed Quiz</div>
       <img className="w-[116px] h-[116px] mb-4" src="https://via.placeholder.com/116x116" alt="Timed Quiz" />
-    </div>
-    <div className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
+    </button>
+    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
       <div className="text-black text-3xl font-semibold">Survival</div>
       <img className="w-[116px] h-[108.38px] mb-4" src="https://via.placeholder.com/116x108" alt="Survival" />
-    </div>
-    <div className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
+    </button>
+    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
       <div className="text-black text-3xl font-semibold">Challenge a Friend</div>
       <img className="w-[123.33px] h-[101.82px] mb-4" src="https://via.placeholder.com/123x102" alt="Challenge a Friend" />
-    </div>
-    <div className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
+    </button>
+    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
       <div className="text-black text-3xl font-semibold text-center">Settings</div>
       <img className="w-[116px] h-[116px] mb-4" src="https://via.placeholder.com/116x116" alt="Timed Quiz" />
-    </div>
-    <div className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
+    </button>
+    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
       <div className="text-black text-3xl font-semibold mb-4">Tournament</div>
       <img className="w-[116px] h-[103.86px]" src="https://via.placeholder.com/116x104" alt="Tournament" />
-    </div>
+    </button>
   </div>
 </div>
 
