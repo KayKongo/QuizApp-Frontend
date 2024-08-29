@@ -17,14 +17,14 @@ function Contest() {
             This is the Round of Fundamentals. Good Luck!
           </div>
         </div>
-        <div className="bg-teal-200 rounded-3xl p-4 w-3/4 h-1/2 self-end mb-8">
+        <div className="bg-[#A1DDE8] rounded-3xl p-4 w-3/4 h-1/2 self-end mb-8">
           <div className="text-xl font-normal mb-1">Question</div>
           <div className="bg-white p-10 rounded-2xl">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
         </div>
-        <div className="bg-teal-200 rounded-3xl w-3/4 self-end p-4">
+        <div className="bg-[#A1DDE8] rounded-3xl w-3/4 self-end p-4">
           <div className="text-xl font-normal mb-1">Your Answer</div>
           <div className="bg-white p-4 rounded-2xl">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -35,7 +35,7 @@ function Contest() {
 
       {/* Right side: Time Left and Contestants */}
       <div className="grid grid-cols-2 gap-10 w-2/6 p-4">
-        <div className="bg-teal-200 rounded-3xl shadow p-4">
+        <div className="bg-[#A1DDE8] rounded-3xl shadow p-4">
           <div className="text-2xl font-medium">Time Left</div>
           <div className="text-3xl font-medium mt-4">30 seconds</div>
         </div>

@@ -1,7 +1,15 @@
 import React, { useEffect } from 'react';
 import Logo from "../assets/Logo.svg";
+import { useNavigate } from 'react-router-dom';
 
 function MainMenu() {
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+  
+        navigate('/setup-tournament');
+  
+    };
 
 
   return (
@@ -16,22 +24,22 @@ function MainMenu() {
 
         <div className='flex flex-col md:flex-row md:justify-between space-y-4 md:space-y-0'>
             <div className="text-justify ml-24">
-                <div className="text-4xl font-semibold leading-tight mb-2">Select Game Mode</div>
-                <div className="text-2xl leading-tight">
+                <div className="text-3xl font-semibold leading-tight mb-2">Select Game Mode</div>
+                <div className="text-xl leading-tight">
                 Browse through various quiz categories <br />such as General Knowledge, Science, History, and more.<br />Good Luck!
                 </div>
             </div>
-`
-            <div className="flex flex-wrap justify-center gap-1 mr-12">
+
+            <div className="flex flex-wrap justify-center gap-1 mr-60">
 
                     <img 
-                        className="w-56 h-40 rounded-tl-[40px] rounded-tr-[128px] rounded-bl-[60px] rounded-br-3xl mt-16" 
+                        className="w-56 h-40 rounded-tl-[40px] rounded-tr-[100px] rounded-bl-[60px] rounded-br-3xl mt-16" 
                         src="https://via.placeholder.com/319x244" 
                         alt="Image 1" 
                     />
                     
                     <div className='gap-1'>
-                    <div className='flex flex-wrap justify-center gap-1'>
+                    <div className='flex flex-wrap justify-center mr-10'>
                     <img 
                         className="w-36 h-28 rounded-tl-[40px] rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl" 
                         src="https://via.placeholder.com/189x154" 
@@ -79,7 +87,8 @@ function MainMenu() {
       <div className="text-black text-3xl font-semibold text-center">Settings</div>
       <img className="w-[116px] h-[116px] mb-4" src="https://via.placeholder.com/116x116" alt="Timed Quiz" />
     </button>
-    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
+    
+    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={handleButtonClick}>
       <div className="text-black text-3xl font-semibold mb-4">Tournament</div>
       <img className="w-[116px] h-[103.86px]" src="https://via.placeholder.com/116x104" alt="Tournament" />
     </button>

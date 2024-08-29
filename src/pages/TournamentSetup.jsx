@@ -25,40 +25,39 @@ function TournamentSetup() {
                     exciting rewards!
                 </div>
             </div>
-`
-            <div className="flex flex-wrap justify-center gap-1 mr-12">
 
-                    <img 
-                        className="w-56 h-40 rounded-tl-[40px] rounded-tr-[128px] rounded-bl-[60px] rounded-br-3xl mt-16" 
-                        src="https://via.placeholder.com/319x244" 
-                        alt="Image 1" 
-                    />
-                    
-                    <div className='gap-1'>
-                    <div className='flex flex-wrap justify-center gap-1'>
-                    <img 
-                        className="w-36 h-28 rounded-tl-[40px] rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl" 
-                        src="https://via.placeholder.com/189x154" 
-                        alt="Image 2" 
-                    />
-                    <img 
-                        className="w-36 h-28 rounded-tl-[40px] rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl" 
-                        src="https://via.placeholder.com/359x157" 
-                        alt="Image 3" 
-                    />
-                        
-                    </div>
+            <div className="flex flex-wrap justify-center gap-1 mr-60">
 
-                    <img 
-                        className="w-72 h-28 rounded-tl-3xl rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl mt-1" 
-                        src="https://via.placeholder.com/195x157" 
-                        alt="Image 4" 
-                    />
+<img 
+    className="w-56 h-40 rounded-tl-[40px] rounded-tr-[100px] rounded-bl-[60px] rounded-br-3xl mt-16" 
+    src="https://via.placeholder.com/319x244" 
+    alt="Image 1" 
+/>
 
-                    </div>
-                   
+<div className='gap-1'>
+<div className='flex flex-wrap justify-center mr-10'>
+<img 
+    className="w-36 h-28 rounded-tl-[40px] rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl" 
+    src="https://via.placeholder.com/189x154" 
+    alt="Image 2" 
+/>
+<img 
+    className="w-36 h-28 rounded-tl-[40px] rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl" 
+    src="https://via.placeholder.com/359x157" 
+    alt="Image 3" 
+/>
+    
 </div>
 
+<img 
+    className="w-72 h-28 rounded-tl-3xl rounded-tr-3xl rounded-bl-[60px] rounded-br-3xl mt-1" 
+    src="https://via.placeholder.com/195x157" 
+    alt="Image 4" 
+/>
+
+</div>
+
+</div>
         </div>
 
         <div className="flex justify-start items-center ml-24">
