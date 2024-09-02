@@ -11,6 +11,18 @@ function MultiplayerSetup() {
     const [selectedDifficulty, setSelectedDifficulty] = useState(null);
     const navigate = useNavigate();
     const [mode, setMode] = useState('Join');
+    const [channelName, setChannelName] = useState('');
+
+    const handleChannelNameChange = (event) => {
+      setChannelName(event.target.value);
+    };
+  
+    const handleCreateJoinChannel = () => {
+      localStorage.clear()
+      localStorage.setItem('channelName', channelName);
+      // Navigate or perform additional actions here if needed
+      navigate('/multiplayer-contest');
+    };
 
     const toggleMode = (newMode) => {
       setMode(newMode);
@@ -21,7 +33,10 @@ function MultiplayerSetup() {
     };
 
     const handleStartButtonClick = () => {
-  
+      localStorage.clear()
+      localStorage.setItem('channelName', channelName);
+      // Navigate or perform additional actions here if needed
+      navigate('/multiplayer-contest');
         navigate('/multiplayer-contest');
     };
 

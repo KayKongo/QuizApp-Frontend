@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AgoraRTC from 'agora-rtc-sdk-ng';
-import Microphone from '../components/SpeechRecognition';
 import recording_animation from './../assets/recording_animation.gif';
-import AgoraRTM from 'agora-rtm-sdk';
+import Microphone from '../components/SpeechRecognition';
 import { InlineMath } from 'react-katex';
 import axios from 'axios';
 import Scoreboard from '../components/scoreboard';
