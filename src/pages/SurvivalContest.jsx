@@ -1,14 +1,24 @@
+import { Setting2, Back} from 'iconsax-react';
+import { useNavigate } from 'react-router-dom';
+
 function SurvivalContest() {
+
+  const navigate = useNavigate(); // Initialize the navigate hook
+
+  const handleGoBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
+
     return (
       <div className="relative bg-white p-4">
         {/* Top section with back and settings buttons */}
-        <div className="flex justify-between items-center">
-          <div className="BackButton w-24 h-24">back</div>
-          <div className="bg-[#A1DDE8] w-1/6 rounded-3xl items-center shadow p-4">
+        <div className="flex justify-between items-center h-20 mb-20">
+        <Back size="32" color="#555555" onClick={handleGoBack}/>
+          <div className="bg-[#A1DDE8] w-1/6 rounded-3xl items-center shadow p-4 align-bottom mt-8">
             <div className="text-2xl font-medium self-center justify-center">Time Left</div>
             <div className="text-3xl font-medium mt-4">30 seconds</div>
           </div>
-          <div className="Settings w-24 h-24">settings</div>
+          <Setting2 size="32" color="#555555" className=''/>
         </div>
 
   

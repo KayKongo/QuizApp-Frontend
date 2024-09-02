@@ -22,7 +22,7 @@ function MultiplayerSetup() {
 
     const handleStartButtonClick = () => {
   
-        navigate('/contest');
+        navigate('/multiplayer-contest');
     };
 
 
@@ -102,7 +102,7 @@ function MultiplayerSetup() {
             className="bg-white p-3 m-2 rounded-2xl text-center border-gray-900 border-opacity-20"
           />
           <button
-            onClick={() => console.log(`${mode} Channel`)}
+            onClick={handleStartButtonClick}
             className="bg-blue-500 p-2 m-2 rounded-2xl text-white"
           >
             {mode === 'Join' ? 'Join' : 'Create'}

@@ -1,10 +1,19 @@
+import { Setting2, Back} from 'iconsax-react';
+import { useNavigate } from 'react-router-dom';
+
 function Contest() {
+
+  const navigate = useNavigate(); // Initialize the navigate hook
+
+  const handleGoBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
   return (
     <div className="relative bg-white p-4">
       {/* Top section with back and settings buttons */}
-      <div className="flex justify-between items-center">
-        <div className="BackButton w-24 h-24">back</div>
-        <div className="Settings w-24 h-24">settings</div>
+      <div className="flex justify-between items-center mb-20">
+        <Back size="32" color="#555555" onClick={handleGoBack}/>
+        <Setting2 size="32" color="#555555" className=''/>
       </div>
 
       {/* Round information */}

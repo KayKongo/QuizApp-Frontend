@@ -1,4 +1,4 @@
-import Logo from "./assets/Logo.png";
+import 'regenerator-runtime/runtime';
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainMenu from "./pages/MainMenu";
@@ -8,6 +8,7 @@ import MultiplayerSetup from "./pages/MultiplayerSetup";
 import SurvivalSetup from "./pages/SurvivalSetup";
 import SurvivalContest from "./pages/SurvivalContest";
 import PracticeSetup from "./pages/PracticeSetup";
+import MultiplayerContest from "./pages/MultiplayerContest";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/setup-tournament" element={<TournamentSetup />} />
         <Route path="/contest" element={<Contest/>} />
         <Route path="/setup-multiplayer" element={<MultiplayerSetup/>} />
+        <Route path="/multiplayer-contest" element={<MultiplayerContest/>} /> 
         <Route path="/setup-survival" element={<SurvivalSetup/>} /> 
         <Route path="/survival-contest" element={<SurvivalContest/>} /> 
         <Route path="/setup-practice" element={<PracticeSetup/>} /> 
