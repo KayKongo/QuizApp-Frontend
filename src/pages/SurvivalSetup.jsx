@@ -26,7 +26,7 @@ function SurvivalSetup() {
 
       <div
         className='size-16 m-5'>
-        <img src={Logo} alt="Logo" className="" />
+        <img src={Logo} alt="Logo z-40" className="" />
       </div>
 
 

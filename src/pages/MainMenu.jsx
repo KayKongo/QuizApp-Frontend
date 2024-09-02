@@ -5,7 +5,7 @@ import studentLaptop from "../assets/student-laptop.jpg";
 import laptop from "../assets/laptop.jpg";
 import writing from '../assets/writing.jpg';
 import books from '../assets/books.jpg';
-import { Cup, Setting2, TimerStart, Rank, Profile2User, MedalStar, Flash } from 'iconsax-react';
+import { Cup, Setting2, TimerStart, Rank, Profile2User, MedalStar, Flash, Computing, Crown1, Award, Book } from 'iconsax-react';
 
 function MainMenu() {
     const navigate = useNavigate();
@@ -18,9 +18,21 @@ function MainMenu() {
   return (
     <div className="relative flex flex-col h-screen">
 
+<Cup size="64" color="#000000" className="absolute opacity-5" />
+
+{/* Other Background Icons */}
+<Award size="64" color="#000000" className="absolute top-20 right-10 opacity-10" />
+<TimerStart size="64" color="#000000" className="absolute bottom-20 left-10 opacity-10" />
+<Rank size="64" color="#000000" className="absolute bottom-10 right-10 opacity-10" />
+<Book size="64" color="#000000" className="absolute bottom-1/2 left-5 transform -translate-x-1/2 -translate-y-1/2 opacity-10" />
+<MedalStar size="64" color="#000000" className="absolute bottom-1/2 right-1/4 transform translate-x-1/2 translate-y-1/2 opacity-10" />
+<Flash size="64" color="#000000" className="absolute top-20 right-1/3 opacity-10" />
+<Computing size="64" color="#000000" className="absolute top-10 left-1/3 opacity-10"/>
+<Crown1 size="64" color="#000000" className="absolute bottom-10 left-1/3 opacity-10"/>
+
       <div
         className='size-16 m-5'>
-        <img src={Logo} alt="Logo" className="transition-transform duration-1000 view-transition"/>
+        <img src={Logo} alt="Logo" className="transition-transform duration-1000 view-transition z-40"/>
       </div>
 
 
@@ -33,7 +45,7 @@ function MainMenu() {
                 </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-1 mr-60">
+            <div className="flex flex-wrap justify-center gap-1 mr-60 z-40">
 
                     <img 
                         className="w-56 h-40 rounded-tl-[40px] rounded-tr-[100px] rounded-bl-[60px] rounded-br-3xl mt-16" 
@@ -68,7 +80,7 @@ function MainMenu() {
 
         </div>
 
-        <div className="flex justify-center items-center mr-24">
+        <div className="flex justify-center items-center mr-24 z-40">
         <button className="bg-[#E8FBFF] rounded-[21px] shadow p-6 h-4/5 flex flex-col items-center" onClick={() => handleButtonClick('/setup-tournament')}>
       <div className="text-black text-2xl font-semibold mb-4">Quick Contest</div>
       <Flash size="32" color="#555555" className='w-[80px] h-[80px]'/>
