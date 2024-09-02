@@ -20,15 +20,13 @@ function Contest() {
         <div className="bg-[#A1DDE8] rounded-3xl p-4 w-3/4 h-1/2 self-end mb-8">
           <div className="text-xl font-normal mb-1">Question</div>
           <div className="bg-white p-10 rounded-2xl">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Questions show here
           </div>
         </div>
         <div className="bg-[#A1DDE8] rounded-3xl w-3/4 self-end p-4">
           <div className="text-xl font-normal mb-1">Your Answer</div>
           <div className="bg-white p-4 rounded-2xl">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Your answer will show here
           </div>
         </div>
       </div>

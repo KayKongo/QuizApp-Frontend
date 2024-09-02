@@ -5,16 +5,14 @@ import studentLaptop from "../assets/student-laptop.jpg";
 import laptop from "../assets/laptop.jpg";
 import writing from '../assets/writing.jpg';
 import books from '../assets/books.jpg';
-import { Cup, Setting2, TimerStart, Rank, Profile2User, MedalStar } from 'iconsax-react';
+import { Cup, Setting2, TimerStart, Rank, Profile2User, MedalStar, Flash } from 'iconsax-react';
 
 function MainMenu() {
     const navigate = useNavigate();
 
-    const handleButtonClick = () => {
-  
-        navigate('/setup-tournament');
-  
-    };
+    const handleButtonClick = (route) => {
+        navigate(route);
+      };
 
 
   return (
@@ -71,32 +69,43 @@ function MainMenu() {
         </div>
 
         <div className="flex justify-center items-center mr-24">
+        <button className="bg-[#E8FBFF] rounded-[21px] shadow p-6 h-4/5 flex flex-col items-center" onClick={() => handleButtonClick('/setup-tournament')}>
+      <div className="text-black text-2xl font-semibold mb-4">Quick Contest</div>
+      <Flash size="32" color="#555555" className='w-[80px] h-[80px]'/>
+    </button>
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-10">
-    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-2xl font-semibold mb-4">Practice</div>
-      <MedalStar size="32" color="#555555" className='w-[80px] h-[80px]'/>
-    </button>
-    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-2xl font-semibold mb-4">Ranking</div>
-      <Rank size="32" color="#555555" className='w-[80px] h-[80px]'/>
-    </button>
-    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-2xl font-semibold mb-4">Survival</div>
-      <TimerStart size="32" color="#555555" className='w-[80px] h-[80px]'/>
-    </button>
-    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-2xl font-semibold mb-4">Challenge a Friend</div>
-      <Profile2User size="32" color="#555555" className='w-[80px] h-[80px]'/>
-    </button>
-    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center">
-      <div className="text-black text-2xl font-semibold  mb-4">Settings</div>
-      <Setting2 size="32" color="#555555" className='w-[80px] h-[80px]'/>
-    </button>
-    
-    <button className="bg-[#f8fdff] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={handleButtonClick}>
+
+  <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={() => handleButtonClick('/setup-tournament')}>
       <div className="text-black text-2xl font-semibold mb-4">Tournament</div>
       <Cup size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
+    <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={() => handleButtonClick('/setup-practice')}>
+      <div className="text-black text-2xl font-semibold mb-4">Practice</div>
+      <MedalStar size="32" color="#555555" className='w-[80px] h-[80px]'/>
+    </button>
+
+        <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={() => handleButtonClick('/setup-survival')}>
+      <div className="text-black text-2xl font-semibold mb-4">Survival</div>
+      <TimerStart size="32" color="#555555" className='w-[80px] h-[80px]'/>
+    </button>
+
+
+    <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={() => handleButtonClick('/setup-multiplayer')}>
+      <div className="text-black text-2xl font-semibold mb-4">Challenge a Friend</div>
+      <Profile2User size="32" color="#555555" className='w-[80px] h-[80px]'/>
+    </button>
+
+
+    <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center">
+      <div className="text-black text-2xl font-semibold mb-4">Ranking</div>
+      <Rank size="32" color="#555555" className='w-[80px] h-[80px]'/>
+    </button>
+    <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center">
+      <div className="text-black text-2xl font-semibold  mb-4">Settings</div>
+      <Setting2 size="32" color="#555555" className='w-[80px] h-[80px]'/>
+    </button>
+
+
   </div>
 </div>
 

@@ -6,15 +6,10 @@ import laptop from "../assets/laptop.jpg";
 import writing from '../assets/writing.jpg';
 import books from '../assets/books.jpg';
 
-function MultiplayerSetup() {
+function SurvivalSetup() {
 
     const [selectedDifficulty, setSelectedDifficulty] = useState(null);
     const navigate = useNavigate();
-    const [mode, setMode] = useState('Join');
-
-    const toggleMode = (newMode) => {
-      setMode(newMode);
-    };
 
     const handleButtonClick = (difficulty) => {
       setSelectedDifficulty(difficulty);
@@ -22,7 +17,7 @@ function MultiplayerSetup() {
 
     const handleStartButtonClick = () => {
   
-        navigate('/contest');
+        navigate('/survival-contest');
     };
 
 
@@ -38,12 +33,9 @@ function MultiplayerSetup() {
 
         <div className='flex flex-col md:flex-row md:justify-between space-y-4 md:space-y-0'>
             <div className="text-justify ml-24">
-                <div className="text-3xl font-semibold leading-tight mb-2">Challenge a friend</div>
+                <div className="text-3xl font-semibold leading-tight mb-2">Survival</div>
                 <div className="text-xl leading-tight">
-                Compete in thrilling, timed quiz tournaments against others.
-                <br/>
-                Climb the leaderboard, and showcase your knowledge!
-                <br/>
+                   Let's see how many Questions you can answer <br/> without going wrong!
                 </div>
             </div>
 
@@ -80,33 +72,22 @@ function MultiplayerSetup() {
 
 </div>
         </div>
-        <div className="flex flex-col justify-center items-center mt-16">
-      <div className="bg-[#A1DDE8] rounded-3xl w-72 p-4 h-auto mb-8 mt-1">
-        <div className='flex justify-center mb-4'>
-          <button
-            onClick={() => toggleMode('Join')}
-            className={`bg-blue-500 p-2 m-2 rounded-2xl w-1/2 ${mode === 'Join' ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
-          >
-            Join Channel
-          </button>
-          <button
-            onClick={() => toggleMode('Create')}
-            className={`bg-blue-500 p-2 m-2 rounded-2xl w-1/2 ${mode === 'Create' ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
-          >
-            Create Channel
-          </button>
-        </div>
+        <div className="flex flex-col justify-center items-center mt-12">
+      <div className='mr-5 text-2xl'>
+       <p>How dificult do you want this to be?</p> 
+      </div>
+      <div className="bg-[#A1DDE8] rounded-3xl w-72 p-3 h-auto mb-8 mt-1">
         <div className='flex flex-col'>
-          <input
-            placeholder="Enter channel name"
-            className="bg-white p-3 m-2 rounded-2xl text-center border-gray-900 border-opacity-20"
-          />
-          <button
-            onClick={() => console.log(`${mode} Channel`)}
-            className="bg-blue-500 p-2 m-2 rounded-2xl text-white"
-          >
-            {mode === 'Join' ? 'Join' : 'Create'}
-          </button>
+
+            <>
+              <button onClick={() => handleButtonClick('Easy')} className="bg-white p-4 m-2 rounded-2xl">Easy</button>
+              <button onClick={() => handleButtonClick('Intermediate')} className="bg-white p-4 m-2 rounded-2xl">Intermediate</button>
+              <button onClick={() => handleButtonClick('Hard')} className="bg-white p-4 m-2 rounded-2xl">Hard</button>
+              <button onClick={() => handleButtonClick('Auto')} className="bg-white p-4 m-2 rounded-2xl">Auto</button>
+              <button className='bg-[#607FF4] px-4 py-1 mt-2 rounded-2xl text-white' onClick={handleStartButtonClick}>
+                Start Tournament!
+              </button>
+            </>
         </div>
       </div>
     </div>
@@ -116,4 +97,4 @@ function MultiplayerSetup() {
   );
 }
 
-export default MultiplayerSetup;
+export default SurvivalSetup;

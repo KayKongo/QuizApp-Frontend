@@ -20,7 +20,7 @@ function QuizLogo() {
       </div>
       <button
         onClick={handleButtonClick}
-        className="bg-[#607FF4] text-white rounded-full px-12 py-1 mt-5 text-2xl"
+        className="bg-[#607FF4] text-white rounded-full px-12 py-1 mt-5 text-2xl z-40"
       >
         Play
       </button>
