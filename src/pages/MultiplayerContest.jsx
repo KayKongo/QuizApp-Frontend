@@ -91,6 +91,9 @@ const MultiplayerContest = () => {
                     remotePlayerContainer.style.width = '270px';
                     remotePlayerContainer.style.height = '240px';
                     remotePlayerContainer.style.margin = '10px';
+                    remotePlayerContainer.style.border = '1px solid #ddd'; // Example border style
+                    remotePlayerContainer.style.borderRadius = '0.5rem'; // Tailwind's rounded-lg equivalent
+                    remotePlayerContainer.style.transition = 'transform 0.3s ease'; // Smooth transition for transform
 
                     if (remoteVideosRef.current) {
                         remoteVideosRef.current.append(remotePlayerContainer);
@@ -398,7 +401,7 @@ const MultiplayerContest = () => {
                             </div>
                             </div>
                         </div>
-                        <div className="bg-[#A1DDE8] rounded-3xl p-4 w-3/4 h-1/2 self-end mb-2 justify-center self-center mt-5">
+                        <div className="bg-[#A1DDE8] rounded-3xl p-4 w-3/4 h-1/2 mb-2 justify-center self-center mt-5">
                             <div className="text-xl font-normal mb-1">Question</div>
                             <div className="bg-white p-10 rounded-2xl">
                             {questions[currentQuestionIndex]?.Question}
