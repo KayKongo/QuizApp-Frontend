@@ -13,12 +13,12 @@ function SurvivalContest() {
       <div className="relative bg-white p-4">
         {/* Top section with back and settings buttons */}
         <div className="flex justify-between items-center h-20 mb-20">
-        <Back size="32" color="#555555" onClick={handleGoBack}/>
+        <Back size="32" color="#555555" onClick={handleGoBack} className="cursor-pointer"/>
           <div className="bg-[#A1DDE8] w-1/6 rounded-3xl items-center shadow p-4 align-bottom mt-8">
             <div className="text-2xl font-medium self-center justify-center">Time Left</div>
             <div className="text-3xl font-medium mt-4">30 seconds</div>
           </div>
-          <Setting2 size="32" color="#555555" className=''/>
+          <Setting2 size="32" color="#555555" className="cursor-pointer"/>
         </div>
 
   

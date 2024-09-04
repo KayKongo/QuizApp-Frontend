@@ -12,8 +12,8 @@ function Contest() {
     <div className="relative bg-white p-4">
       {/* Top section with back and settings buttons */}
       <div className="flex justify-between items-center mb-20">
-        <Back size="32" color="#555555" onClick={handleGoBack}/>
-        <Setting2 size="32" color="#555555" className=''/>
+        <Back size="32" color="#555555" onClick={handleGoBack} className="cursor-pointer"/>
+        <Setting2 size="32" color="#555555" className="cursor-pointer"/>
       </div>
 
       {/* Round information */}
