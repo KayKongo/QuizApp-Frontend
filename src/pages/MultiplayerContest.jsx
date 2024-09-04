@@ -26,9 +26,7 @@ const MultiplayerContest = () => {
     const [isCompetitionStarted, setIsCompetitionStarted] = useState(false);
     const [isAnswering, setIsAnswering] = useState(false);
     const localVideoRef = useRef(null);
-    const remoteVideoRef1 = useRef(null);
-    const remoteVideoRef2 = useRef(null);
-    const [remoteUsers, setRemoteUsers] = useState([]);
+    const remoteVideoRefs = useRef({});
     const [rtmClient, setRtmClient] = useState(null);
     const [rtmChannel, setRtmChannel] = useState(null);
     const [syncedTimer, setSyncedTimer] = useState(30);
@@ -84,67 +82,62 @@ const MultiplayerContest = () => {
             rtc.client.on('user-published', async (user, mediaType) => {
                 await rtc.client.subscribe(user, mediaType);
                 console.log('subscribe success');
-    
+
                 if (mediaType === 'video') {
                     const remoteVideoTrack = user.videoTrack;
-                    const userId = user.uid;
-    
-                    // Determine which remote video container to use
-                    if (remoteUsers.length < 2) {
-                        setRemoteUsers(prevUsers => [...prevUsers, userId]);
-                    }
-    
-                    let remotePlayerContainer;
-                    if (userId === remoteUsers[0]) {
-                        remotePlayerContainer = remoteVideoRef1.current;
-                    } else if (userId === remoteUsers[1]) {
-                        remotePlayerContainer = remoteVideoRef2.current;
-                    } else {
-                        return; // No container available
-                    }
-    
+                    const remotePlayerContainer = document.createElement('div');
+                    remotePlayerContainer.id = user.uid.toString();
+                    remotePlayerContainer.style.width = '270px';
+                    remotePlayerContainer.style.height = '240px';
+                    remotePlayerContainer.style.margin = '10px';
+
+                    remoteVideoRefs.current[user.uid] = remotePlayerContainer;
+                    document.getElementById('remote-videos').append(remotePlayerContainer);
+
                     remoteVideoTrack.play(remotePlayerContainer);
                 }
-    
+
                 if (mediaType === 'audio') {
                     const remoteAudioTrack = user.audioTrack;
                     remoteAudioTrack.play();
                 }
-    
+
                 const { count } = await rtc.client.getUsers();
                 if (count >= contestants) {
                     setIsCompetitionStarted(true);
                 }
             });
-    
+
             rtc.client.on('user-unpublished', (user) => {
-                const userId = user.uid;
-                if (remoteUsers.includes(userId)) {
-                    setRemoteUsers(prevUsers => prevUsers.filter(uid => uid !== userId));
+                const remotePlayerContainer = document.getElementById(user.uid.toString());
+                if (remotePlayerContainer) {
+                    remotePlayerContainer.remove();
+                    delete remoteVideoRefs.current[user.uid];
                 }
             });
-    
+
             rtc.client.on('user-joined', (user) => {
                 console.log('User joined:', user.uid);
                 if (user.uid !== options.uid) {
                     setIsCompetitionStarted(true);
                 }
             });
-    
+
             rtc.client.on('user-left', (user) => {
                 console.log('User left:', user.uid);
-                const userId = user.uid;
-                if (remoteUsers.includes(userId)) {
-                    setRemoteUsers(prevUsers => prevUsers.filter(uid => uid !== userId));
+                const remotePlayerContainer = document.getElementById(user.uid.toString());
+                if (remotePlayerContainer) {
+                    remotePlayerContainer.remove();
+                    delete remoteVideoRefs.current[user.uid];
                 }
             });
         };
-    
+
         const initializeChannel = async () => {
             try {
                 rtc.client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
                 await startBasicCall();
-    
+
                 if (options.channel) {
                     setMode('join');
                     await joinChannel();
@@ -155,9 +148,9 @@ const MultiplayerContest = () => {
                 console.error('Error initializing channel:', error);
             }
         };
-    
+
         initializeChannel();
-    
+
         return () => {
             if (rtc.client) {
                 rtc.client.leave();
@@ -166,7 +159,6 @@ const MultiplayerContest = () => {
             }
         };
     }, []);
-
 
     const joinChannel = async () => {
         try {
@@ -199,8 +191,9 @@ const MultiplayerContest = () => {
                 localVideoRef.current.innerHTML = '';
             }
 
-            if (remoteVideosRef.current) {
-                remoteVideosRef.current.innerHTML = '';
+            const remoteContainer = document.getElementById('remote-videos');
+            if (remoteContainer) {
+                remoteContainer.innerHTML = '';
             }
 
             await rtc.client.leave();
@@ -260,198 +253,115 @@ const MultiplayerContest = () => {
           return question;
         }
         if (Array.isArray(question)) {
-          return question.map(part => 
-            typeof part === 'string' ? part : ''
-          ).join(' ');
+          return question.map(item => typeof item === 'string' ? item : '').join(' ');
         }
         return '';
     };
-    
-    const renderKatex = (text) => {
-        const parts = text.split(/(\$.*?\$)/);
-        return parts.map((part, index) => {
-          if (part.startsWith('$') && part.endsWith('$')) {
-            return <InlineMath key={index} math={part.slice(1, -1)} />;
-          }
-          return part;
-        });
-    };
-    
-    useEffect(() => {
-        const interval = setInterval(() => {
-          setTimer((prevTimer) => {
-            if (prevTimer === 1) {
-              handleNextContestant();
-              return 30;
-            }
-            return prevTimer - 1;
-          });
-        }, 1000);
-    
-        return () => clearInterval(interval);
-    }, [activeContestant, questions, currentQuestionIndex]);
-    
-    useEffect(() => {
-        const gifInterval = setInterval(() => {
-          setGifKey((prevKey) => prevKey + 1);
-        }, 3000);
-    
-        return () => clearInterval(gifInterval);
-    }, []);
-    
-    const handleNextContestant = () => {
-        setActiveContestant((prev) => {
-            const next = (prev + 1) % contestants;
-            if (next === 0) {
-                handleNextQuestion();
-            }
-            return next;
-        });
-        setTimer(30);
-        setTranscript("");
-        setIsAnswering(true);
-    };
-    
-    const handleNextQuestion = () => {
-        setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % questions.length);
-    };
-    
-    const handleTranscriptChange = (newTranscript) => {
-        setTranscript(newTranscript);
-    };
-    
-    const playQuestionAudio = (questionText) => {
-        console.log('Playing question:', questionText);
-    };
-    
-    const handleSubmitAnswer = () => {
-        const currentQuestion = questions[currentQuestionIndex];
-        const isCorrect = transcript.toLowerCase().includes(currentQuestion.Answer.toLowerCase());
 
-        if (isCorrect) {
-            setScores(prevScores => {
-                const newScores = [...prevScores];
-                newScores[activeContestant] += 1;
-                return newScores;
-            });
-        }
-
-        setIsAnswering(false);
-        handleNextContestant();
-    };
-
-    const handleStartCompetition = () => {
-        if (contestants >= 2) {
-            setIsCompetitionStarted(true);
-            setIsAnswering(true);
-        } else {
-            alert('At least two users are required to start the competition.');
+    const playQuestionAudio = async (questionText) => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/convert_to_speech', {
+                text: questionText,
+                model: 'default',
+            }, { responseType: 'arraybuffer' });
+    
+            const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            audio.play();
+        } catch (error) {
+            console.error('Error converting text to speech:', error);
         }
     };
-
-    useEffect(() => {
-        let interval;
-        if (isCompetitionStarted && activeContestant === 0) { // Only the first contestant's device controls the timer
-            interval = setInterval(() => {
-                setSyncedTimer((prevTimer) => {
-                    const newTimer = prevTimer > 0 ? prevTimer - 1 : 30;
-                    broadcastTimer(newTimer);
-                    if (newTimer === 30) {
-                        handleNextContestant();
-                    }
-                    return newTimer;
-                });
-            }, 1000);
-        }
-
-        return () => clearInterval(interval);
-    }, [isCompetitionStarted, activeContestant]);
+    
+    const handleSubmitAnswer = async () => {
+        // Implement answer submission logic here
+    };
 
     return (
-    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
-        {isCompetitionStarted && <Scoreboard scores={scores} />}
-        {isCompetitionStarted ? (
-            <div className="relative text-center p-10 bg-white shadow-lg rounded-lg w-full max-w-6xl">
-                <button
-                    onClick={() => navigate('/')}
-                    className="fixed top-4 left-4 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700"
-                >
-                    Back
-                </button>
-                <div className="mb-8">
-                    <h1 className="text-4xl font-bold mb-4">Quizmistress</h1>
-                    <p className="text-lg mb-4">The quizmistress will guide you through the questions.</p>
-                    <h2 className="text-3xl font-semibold mb-4">
-                        Contestant {activeContestant + 1}'s Turn - Time Left: {syncedTimer}s
-                    </h2>
-                </div>
-
-                <div className='flex flex-col items-center'>
-                    <div
-                        className='border rounded-lg transition-transform'
-                        style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', padding: '10px' }}
+        <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+            {isCompetitionStarted && <Scoreboard scores={scores} />}
+            {isCompetitionStarted ? (
+                <div className="relative text-center p-10 bg-white shadow-lg rounded-lg w-full max-w-6xl">
+                    <button
+                        onClick={() => navigate('/')}
+                        className="fixed top-4 left-4 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700"
                     >
-                        <div
-                            className='border rounded-lg transition-transform'
-                            ref={localVideoRef}
-                            style={{ width: '270px', height: '240px', margin: '11px' }}
-                        >
-                            Local user {options.uid}
-                        </div>
-
-                        <div
-                            className='border rounded-lg transition-transform'
-                            ref={remoteVideoRef1}
-                            style={{ width: '270px', height: '240px', margin: '11px' }}
-                        >
-                            Remote user 1
-                        </div>
-
-                        <div
-                            className='border rounded-lg transition-transform'
-                            ref={remoteVideoRef2}
-                            style={{ width: '270px', height: '240px', margin: '11px' }}
-                        >
-                            Remote user 2
-                        </div>
-                    </div>
+                        Back
+                    </button>
                     <div className="mb-8">
-                        <h2 className="text-2xl font-semibold">Question {currentQuestionIndex + 1}</h2>
-                        <p className="text-xl mt-2">{questions[currentQuestionIndex]?.Question}</p>
+                        <h1 className="text-4xl font-bold mb-4">Quizmistress</h1>
+                        <p className="text-lg mb-4">The quizmistress will guide you through the questions.</p>
+                        <h2 className="text-3xl font-semibold mb-4">
+                            Contestant {activeContestant + 1}'s Turn - Time Left: {syncedTimer}s
+                        </h2>
                     </div>
-                </div>
-                {isAnswering && (
-                    <>
-                        <div className="mt-5 w-full max-w-6xl flex justify-center">
-                            <img key={gifKey} src={recording_animation} alt="Animation" className="h-24" />
-                            <Microphone onTranscriptChange={handleTranscriptChange} />
-                        </div>
-                        <p className="mt-4">Your answer: {transcript}</p>
-                        <button
-                            onClick={handleSubmitAnswer}
-                            className="mt-4 bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-700"
-                        >
-                            Submit Answer
-                        </button>
-                    </>
-                )}
-            </div>
-        ) : (
-            <div className="relative text-center p-10 bg-white shadow-lg rounded-lg w-full max-w-6xl">
-                <button
-                    className='bg-green-500 text-white p-2 rounded mt-5'
-                    type="button"
-                    onClick={handleStartCompetition}
-                    disabled={contestants < 2}
-                >
-                    Start Competition!
-                </button>
-                <p className="text-lg mt-4">{contestants < 2 ? 'Waiting for more users to join...' : ''}</p>
-            </div>
-        )}
-    </div>
-);
 
+                    <div className='flex flex-col items-center'>
+                        <div
+                            className='border rounded-lg transition-transform'
+                            style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', padding: '10px' }}
+                        >
+                            <div
+                                className='border rounded-lg transition-transform'
+                                ref={localVideoRef}
+                                style={{ width: '270px', height: '240px', margin: '11px' }}
+                            >
+                                Local user {options.uid}
+                            </div>
+
+                            <div
+                                className='border rounded-lg transition-transform'
+                                id='remote-videos'
+                                style={{ width: '270px', height: '240px', margin: '11px' }}
+                            >
+                                Remote user 1
+                            </div>
+
+                            <div
+                                className='border rounded-lg transition-transform'
+                                id='remote-videos'
+                                style={{ width: '270px', height: '240px', margin: '11px' }}
+                            >
+                                Remote user 2
+                            </div>
+                        </div>
+                        <div className="mb-8">
+                            <h2 className="text-2xl font-semibold">Question {currentQuestionIndex + 1}</h2>
+                            <p className="text-xl mt-2">{questions[currentQuestionIndex]?.Question}</p>
+                        </div>
+                    </div>
+                    {isAnswering && (
+                        <>
+                            <div className="mt-5 w-full max-w-6xl flex justify-center">
+                                <img key={gifKey} src={recording_animation} alt="Animation" className="h-24" />
+                                <Microphone onTranscriptChange={handleTranscriptChange} />
+                            </div>
+                            <p className="mt-4">Your answer: {transcript}</p>
+                            <button
+                                onClick={handleSubmitAnswer}
+                                className="mt-4 bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-700"
+                            >
+                                Submit Answer
+                            </button>
+                        </>
+                    )}
+                </div>
+            ) : (
+                <div className="relative text-center p-10 bg-white shadow-lg rounded-lg w-full max-w-6xl">
+                    <button
+                        className='bg-green-500 text-white p-2 rounded mt-5'
+                        type="button"
+                        onClick={handleStartCompetition}
+                        disabled={contestants < 2}
+                    >
+                        Start Competition!
+                    </button>
+                    <p className="text-lg mt-4">{contestants < 2 ? 'Waiting for more users to join...' : ''}</p>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default MultiplayerContest;
