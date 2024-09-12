@@ -222,7 +222,7 @@ const MultiplayerContest = () => {
     
         const fetchQuestions = async () => {
           try {
-            const response = await axios.get('http://localhost:8000/api/round1/quiz');
+            const response = await axios.get('http://localhost:8000/first_round/quiz');
             const katexQuestions = response.data.questions.map(q => ({
               ...q,
               Question: renderKatex(q.Question)
@@ -369,7 +369,7 @@ const MultiplayerContest = () => {
     return (
         <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
             {isCompetitionStarted ? (
-                <div className="relative text-center p-10 bg-white shadow-lg rounded-lg w-full max-w-6xl">
+                <div className="relative text-center p-7 bg-white shadow-lg rounded-lg w-full max-w-6xl">
                     <div className="flex justify-between items-center">
                         <Back size="32" color="#555555" onClick={handleGoBack} className="cursor-pointer"/>
                         <Setting2 size="32" color="#555555" className="cursor-pointer"/>
@@ -401,14 +401,14 @@ const MultiplayerContest = () => {
                             </div>
                             </div>
                         </div>
-                        <div className="bg-[#A1DDE8] rounded-3xl p-4 w-3/4 h-1/2 mb-2 justify-center self-center mt-5">
-                            <div className="text-xl font-normal mb-1">Question</div>
-                            <div className="bg-white p-10 rounded-2xl">
+                        <div className="bg-[#A1DDE8] rounded-3xl p-2 w-3/4 h-1/2 mb-1 justify-center self-center mt-3">
+                            <div className="text-xl font-normal">Question</div>
+                            <div className="bg-white p-12 rounded-2xl">
                             {questions[currentQuestionIndex]?.Question}
                             </div>
                         </div>
                         
-                        <Microphone onTranscriptChange={handleTranscriptChange} />
+                        <Microphone onTranscriptChange={handleTranscriptChange} showTranscript={true}/>
                     </div>
                         
 

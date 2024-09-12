@@ -2,7 +2,7 @@ import React from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { Microphone2, MicrophoneSlash, Refresh2 } from 'iconsax-react';
 
-const Microphone = ({ onTranscriptChange, showTranscript = true }) => {
+const SecMicrophone = ({ onTranscriptChange, showTranscript = true }) => {
     const {
         transcript,
         listening,
@@ -29,7 +29,7 @@ const Microphone = ({ onTranscriptChange, showTranscript = true }) => {
     };
 
     return (
-        <div className='w-3/4 items-center'>
+        <div className='items-center'>
             {showTranscript && (
                 <div className="bg-[#9adfb1] rounded-3xl self-center justify-center p-4">
                     <div className="text-xl font-normal">Your Answer</div>
@@ -38,7 +38,7 @@ const Microphone = ({ onTranscriptChange, showTranscript = true }) => {
                     </div>
                 </div>
             )}
-            <p>Microphone: {listening ? 'on' : 'off'}</p>
+            <p className='text-center'>Microphone: {listening ? 'on' : 'off'}</p>
 
             <div className='flex self-center justify-center'>
                 {listening ? (
@@ -73,4 +73,4 @@ const Microphone = ({ onTranscriptChange, showTranscript = true }) => {
     );
 };
 
-export default Microphone;
+export default SecMicrophone;

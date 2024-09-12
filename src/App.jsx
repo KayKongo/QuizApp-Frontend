@@ -9,6 +9,7 @@ import SurvivalSetup from "./pages/SurvivalSetup";
 import SurvivalContest from "./pages/SurvivalContest";
 import PracticeSetup from "./pages/PracticeSetup";
 import MultiplayerContest from "./pages/MultiplayerContest";
+import PracticeContest from './pages/practice';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/setup-survival" element={<SurvivalSetup/>} /> 
         <Route path="/survival-contest" element={<SurvivalContest/>} /> 
         <Route path="/setup-practice" element={<PracticeSetup/>} /> 
+        <Route path="/practice" element={<PracticeContest/>} />
       </Routes>
     </Router>
     </>

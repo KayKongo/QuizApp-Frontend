@@ -17,7 +17,7 @@ function PracticeSetup() {
 
     const handleStartButtonClick = () => {
   
-        navigate('/survival-contest');
+        navigate('/practice');
     };
 
 

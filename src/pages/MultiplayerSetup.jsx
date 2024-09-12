@@ -74,7 +74,7 @@ function MultiplayerSetup() {
             </div>
 
             <div className="flex flex-col justify-center items-center mt-16">
-                <div className="bg-[#A1DDE8] rounded-3xl w-72 p-4 h-auto mb-8 mt-1">
+                <div className="bg-[#A1DDE8] rounded-3xl w-72 p-4 h-auto mb-8 mt-1 shadow-xl">
                     <div className='flex justify-center mb-4'>
                         <button
                             onClick={() => toggleMode('Join')}
@@ -103,7 +103,7 @@ function MultiplayerSetup() {
                             {mode === 'Join' ? 'Join' : 'Create'}
                         </button>
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     );
