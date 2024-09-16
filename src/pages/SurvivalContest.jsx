@@ -1,9 +1,58 @@
+import React, { useState, useEffect } from 'react';
 import { Setting2, Back} from 'iconsax-react';
 import { useNavigate } from 'react-router-dom';
+import SecMicrophone from '../components/ContestSpeech';
 
 function SurvivalContest() {
 
-  const navigate = useNavigate(); // Initialize the navigate hook
+  const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(30);
+  const [transcript, setTranscript] = useState(''); // Initialize the navigate hook
+
+
+    useEffect(() => {
+      fetch('http://127.0.0.1:8000/first_round/quiz')
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Fetched questions:', data);
+          setQuestions(data.questions || []);
+        })
+        .catch((error) => console.error('Error fetching questions:', error));
+    }, []);
+
+    const handleTranscriptChange = (newTranscript) => {
+      setTranscript(newTranscript);
+    };
+
+    const getCurrentQuestion = () => {
+      if (questions.length > 0 && currentQuestionIndex < questions.length) {
+        const currentQuestion = questions[currentQuestionIndex];
+        return currentQuestion['Question'];
+      }
+      return 'Loading questions...';
+    };
+    
+    const handleNextQuestion = () => {
+      setCurrentQuestionIndex((prevIndex) =>
+        prevIndex < questions.length - 1 ? prevIndex + 1 : 0
+      );
+    };
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setTimeLeft((prevTime) => {
+          if (prevTime === 1) {
+            handleNextQuestion();
+            return 30;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+  
+      return () => clearInterval(timer);
+    }, [currentQuestionIndex, questions]);
 
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page
@@ -16,7 +65,7 @@ function SurvivalContest() {
         <Back size="32" color="#555555" onClick={handleGoBack} className="cursor-pointer"/>
           <div className="bg-[#A1DDE8] w-1/6 rounded-3xl items-center shadow p-4 align-bottom mt-8">
             <div className="text-2xl font-medium self-center justify-center">Time Left</div>
-            <div className="text-3xl font-medium mt-4">30 seconds</div>
+            <div className="text-3xl font-medium mt-4">{timeLeft} seconds</div>
           </div>
           <Setting2 size="32" color="#555555" className="cursor-pointer"/>
         </div>
@@ -29,14 +78,11 @@ function SurvivalContest() {
           <div className="bg-[#A1DDE8] rounded-3xl p-4 w-3/4 h-1/2 self-end mb-8">
             <div className="text-xl font-normal mb-1">Question</div>
             <div className="bg-white p-10 rounded-2xl">
-              Questions show here
+              {getCurrentQuestion()}
             </div>
           </div>
-          <div className="bg-[#A1DDE8] rounded-3xl w-3/4 self-end p-4">
-            <div className="text-xl font-normal mb-1">Your Answer</div>
-            <div className="bg-white p-4 rounded-2xl">
-              Your answer will show here
-            </div>
+          <div className="w-3/4 self-end">
+            <SecMicrophone onTranscriptChange={handleTranscriptChange} showTranscript={true} />
           </div>
         </div>
   

@@ -218,30 +218,22 @@ const MultiplayerContest = () => {
     };
 
     useEffect(() => {
-        let isMounted = true;
-    
-        const fetchQuestions = async () => {
-          try {
-            const response = await axios.get('http://localhost:8000/first_round/quiz');
-            const katexQuestions = response.data.questions.map(q => ({
-              ...q,
-              Question: renderKatex(q.Question)
-            }));
-            if (isMounted) {
-              setQuestions(katexQuestions);
-              playQuestionAudio(katexQuestions[0].Question);
-            }
-          } catch (error) {
-            console.error('Error fetching questions:', error);
-          }
-        };
-    
-        fetchQuestions();
-    
-        return () => {
-          isMounted = false;
-        };
-    }, []);
+        fetch('http://127.0.0.1:8000/first_round/quiz')
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Fetched questions:', data);
+            setQuestions(data.questions || []);
+          })
+          .catch((error) => console.error('Error fetching questions:', error));
+      }, []);
+
+      const getCurrentQuestion = () => {
+        if (questions.length > 0 && currentQuestionIndex < questions.length) {
+          const currentQuestion = questions[currentQuestionIndex];
+          return currentQuestion['Question'];
+        }
+        return 'Loading questions...';
+      };
     
     useEffect(() => {
         if (questions.length > 0) {
@@ -404,7 +396,7 @@ const MultiplayerContest = () => {
                         <div className="bg-[#A1DDE8] rounded-3xl p-2 w-3/4 h-1/2 mb-1 justify-center self-center mt-3">
                             <div className="text-xl font-normal">Question</div>
                             <div className="bg-white p-12 rounded-2xl">
-                            {questions[currentQuestionIndex]?.Question}
+                            {getCurrentQuestion()}
                             </div>
                         </div>
                         

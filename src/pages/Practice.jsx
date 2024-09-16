@@ -1,37 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Setting2, Back } from 'iconsax-react';
 import { useNavigate } from 'react-router-dom';
+import SecMicrophone from '../components/ContestSpeech';
 
 function PracticeContest() {
   const [questions, setQuestions] = useState([]); // State to store fetched questions
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // State to keep track of current question index
-
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [transcript, setTranscript] = useState('');
   const navigate = useNavigate(); // Initialize the navigate hook
 
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page
   };
 
+  const handleTranscriptChange = (newTranscript) => {
+    setTranscript(newTranscript);
+  };
   // Fetch questions from the API
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/first_round/quiz'); // Fetch questions from the API
-        const data = await response.json(); // Parse JSON response
-
-        // Ensure data is in the correct format
-        if (data && Array.isArray(data)) {
-          setQuestions(data); // Set questions in state if data is an array
-        } else {
-          console.error('Unexpected data format:', data); // Log if the format is unexpected
-        }
-      } catch (error) {
-        console.error('Error fetching questions:', error);
-      }
-    };
-
-    fetchQuestions();
+    fetch('http://127.0.0.1:8000/first_round/quiz')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Fetched questions:', data);
+        setQuestions(data.questions || []);
+      })
+      .catch((error) => console.error('Error fetching questions:', error));
   }, []);
+
+  const getCurrentQuestion = () => {
+    if (questions.length > 0 && currentQuestionIndex < questions.length) {
+      const currentQuestion = questions[currentQuestionIndex];
+      return currentQuestion['Question'];
+    }
+    return 'Loading questions...';
+  };
 
   // Handle moving to the next question
   const handleNextQuestion = () => {
@@ -71,16 +73,11 @@ function PracticeContest() {
           <div className="bg-[#A1DDE8] rounded-3xl p-4 w-3/4 h-1/2 self-end mb-8">
             <div className="text-xl font-normal mb-1">Question</div>
             <div className="bg-white p-10 rounded-2xl">
-              {/* Display the current question safely */}
-              {currentQuestion.Question || 'Loading...'}
+            {getCurrentQuestion()}
             </div>
           </div>
-          <div className="bg-[#A1DDE8] rounded-3xl w-3/4 self-end p-4">
-            <div className="text-xl font-normal mb-1">Your Answer</div>
-            <div className="bg-white p-4 rounded-2xl">
-              {/* Placeholder for the user's answer */}
-              Your answer will show here
-            </div>
+          <div className="w-3/4 self-end">
+            <SecMicrophone onTranscriptChange={handleTranscriptChange} showTranscript={true} />
           </div>
         </div>
 
