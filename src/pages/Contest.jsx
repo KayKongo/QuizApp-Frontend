@@ -9,6 +9,7 @@ function Contest() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30);
   const [transcript, setTranscript] = useState('');
+  const [contestantPoints, setContestantPoints] = useState([0, 0, 0]);  // Initialize points for each contestant
 
   const handleTranscriptChange = (newTranscript) => {
     setTranscript(newTranscript);
@@ -44,8 +45,33 @@ function Contest() {
     );
   };
 
-  const handleGoBack = () => {
-    navigate(-1);
+  const handleSubmitAnswer = () => {
+    const userAnswer = transcript;
+    const correctAnswer = questions[currentQuestionIndex]?.Answer;
+
+    fetch('http://127.0.0.1:8000/first_round/check-answer-sec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_answer: userAnswer,
+        correct_answer: correctAnswer,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('API result:', data);
+        const points = data.points;  // Get the points from the API response
+
+        // Update contestant points (assuming contestant 1 for now)
+        setContestantPoints((prevPoints) =>
+          prevPoints.map((pointsForContestant, idx) =>
+            idx === 0 ? pointsForContestant + points : pointsForContestant  // Update points for contestant 1
+          )
+        );
+      })
+      .catch((error) => console.error('Error checking answer:', error));
   };
 
   const getCurrentQuestion = () => {
@@ -54,6 +80,10 @@ function Contest() {
       return currentQuestion['Question'];
     }
     return 'Loading questions...';
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -77,7 +107,7 @@ function Contest() {
               {getCurrentQuestion()}
             </div>
           </div>
-          <div className='w-3/4 self-end'>
+          <div className="w-3/4 self-end">
             <SecMicrophone onTranscriptChange={handleTranscriptChange} showTranscript={true} />
           </div>
         </div>
@@ -91,13 +121,18 @@ function Contest() {
             <div key={num} className="bg-cyan-50 rounded-3xl shadow p-4">
               <div className="bg-cyan-50 rounded-full shadow w-20 h-20 mb-4"></div>
               <div className="text-2xl font-light">Contestant {num}</div>
-              <div className="text-2xl font-light mt-4">0</div>
+              <div className="text-2xl font-light mt-4">
+                {contestantPoints[num - 1]} points
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      <button className="GenerateFixtures bg-indigo-500 rounded-2xl shadow mt-8 p-1 mx-auto w-60 flex justify-center items-center">
+      <button
+        className="GenerateFixtures bg-indigo-500 rounded-2xl shadow mt-8 p-1 mx-auto w-60 flex justify-center items-center"
+        onClick={handleSubmitAnswer}
+      >
         <span className="SubmitAnswer text-white text-2xl font-light">Submit Answer</span>
       </button>
     </div>

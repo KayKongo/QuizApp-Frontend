@@ -112,7 +112,7 @@ function MainMenu() {
       <div className="text-black text-2xl font-semibold mb-4">Ranking</div>
       <Rank size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
-    <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center">
+    <button className="bg-[#E8FBFF] rounded-[21px] shadow p-4 flex flex-col items-center" onClick={() => handleButtonClick('/menu-settings')}>
       <div className="text-black text-2xl font-semibold  mb-4">Settings</div>
       <Setting2 size="32" color="#555555" className='w-[80px] h-[80px]'/>
     </button>
